@@ -41,12 +41,13 @@ class NotificationService {
   // Server-backed notifications API
   async getNotifications(_businessId?: string): Promise<BusinessNotification[]> {
     try {
-      const res = await fetch('/api/notifications')
-      if (!res.ok) throw new Error(`Failed to fetch notifications: ${res.status}`)
-      const data = await res.json()
-      return data as BusinessNotification[]
+      const url = window.location.origin ? `${window.location.origin}/api/notifications` : '/api/notifications';
+      const res = await fetch(url, { headers: { 'Content-Type': 'application/json' } });
+      if (!res.ok) return [];
+      const data = await res.json().catch(() => []);
+      return Array.isArray(data) ? data as BusinessNotification[] : [];
     } catch (e) {
-      console.warn('NotificationService: getNotifications failed, returning empty', e)
+      // Silent failure to avoid noisy console errors in preview environments where backend isn't reachable
       return []
     }
   }
