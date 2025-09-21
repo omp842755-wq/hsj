@@ -515,7 +515,7 @@ export default function Dashboard() {
               <h2 className="text-xl font-semibold text-gray-900 mb-4">
                 {getBusinessTypeConfig(business.type).name} Features
               </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
                 {getBusinessModules(business.type, user.role).slice(0, 6).map((module) => {
                   const IconComponent = getIconComponent(module.icon);
                   return (
@@ -682,7 +682,7 @@ export default function Dashboard() {
             {dashboardConfig && (
               <div className="mb-8">
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
                   {dashboardConfig.quickActions.map((module) => {
                     const IconComponent = getIconComponent(module.icon);
                     return (
