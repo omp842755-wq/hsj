@@ -442,7 +442,7 @@ export default function InventoryEnhanced() {
               </div>
             </div>
             
-            <div className="flex items-center gap-3">
+            <div className="chip-row items-center">
               {undoStack.length > 0 && (
                 <Button variant="outline" size="sm">
                   <Undo2 className="w-4 h-4 mr-2" />
@@ -450,14 +450,14 @@ export default function InventoryEnhanced() {
                 </Button>
               )}
               
-              <Button variant="outline" onClick={() => window.location.href = '/dashboard/inventory-batches'}>
+              <Button variant="outline" className="h-8 px-2.5 rounded-full whitespace-nowrap" onClick={() => window.location.href = '/dashboard/inventory-batches'}>
                 <Calendar className="w-4 h-4 mr-2" />
                 Batch Tracking
               </Button>
 
               <SmartImportButton onImport={(t)=>{ setImportSource(t); setShowImport(true); }} />
 
-              <Button onClick={() => { setAddTab('finished'); setShowAddDialog(true); }}>
+              <Button className="h-11 w-full sm:w-auto" onClick={() => { setAddTab('finished'); setShowAddDialog(true); }}>
                 <Plus className="w-4 h-4 mr-2" />
                 Add Product
                 <Badge variant="outline" className="ml-2 text-xs">N</Badge>
@@ -478,10 +478,11 @@ export default function InventoryEnhanced() {
             </div>
             
             {/* Quick Filter Chips */}
-            <div className="flex gap-2">
+            <div className="chip-row">
               <Button
                 variant={quickFilters.starred ? 'default' : 'outline'}
                 size="sm"
+                className="h-8 px-2.5 rounded-full whitespace-nowrap"
                 onClick={() => setQuickFilters(prev => ({ ...prev, starred: !prev.starred }))}
               >
                 <Star className="w-3 h-3 mr-1" />
@@ -491,6 +492,7 @@ export default function InventoryEnhanced() {
               <Button
                 variant={quickFilters.lowStock ? 'default' : 'outline'}
                 size="sm"
+                className="h-8 px-2.5 rounded-full whitespace-nowrap"
                 onClick={() => setQuickFilters(prev => ({ ...prev, lowStock: !prev.lowStock }))}
               >
                 <TrendingDown className="w-3 h-3 mr-1" />
@@ -500,6 +502,7 @@ export default function InventoryEnhanced() {
               <Button
                 variant={quickFilters.outOfStock ? 'default' : 'outline'}
                 size="sm"
+                className="h-8 px-2.5 rounded-full whitespace-nowrap"
                 onClick={() => setQuickFilters(prev => ({ ...prev, outOfStock: !prev.outOfStock }))}
               >
                 <AlertTriangle className="w-3 h-3 mr-1" />
@@ -510,6 +513,7 @@ export default function InventoryEnhanced() {
             <Button
               variant="outline"
               size="sm"
+              className="h-8 px-2.5 rounded-full whitespace-nowrap"
               onClick={() => setShowFilters(!showFilters)}
               data-filter-toggle
             >
