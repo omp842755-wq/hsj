@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import KPICard from '@/components/account/KPICard';
 import PendingSalesTable from '@/components/account/PendingSalesTable';
 import ExpenseList from '@/components/account/ExpenseList';
