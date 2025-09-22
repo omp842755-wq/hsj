@@ -787,7 +787,7 @@ export default function Dashboard() {
                   )}
 
                   {(permissions.hasPermission('financialReports') || permissions.userRole === 'sales_staff') && (
-                    <div className="flex items-center space-x-4 p-4 rounded-lg bg-indigo-50 border border-indigo-100">
+                    <div className="flex items-center space-x-4 p-3 rounded-lg bg-indigo-50 border border-indigo-100">
                       <div className="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center">
                         <TrendingUp className="w-5 h-5 text-white" />
                       </div>
