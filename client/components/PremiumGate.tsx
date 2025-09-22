@@ -58,7 +58,7 @@ export const PremiumGate: React.FC<PremiumGateProps> = ({
                 className="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white"
               >
                 <Sparkles className="w-4 h-4 mr-2" />
-                Upgrade to Premium
+                Get Premium
               </Button>
             </CardContent>
           </Card>
@@ -83,7 +83,7 @@ export const PremiumGate: React.FC<PremiumGateProps> = ({
               className="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white"
             >
               <Crown className="w-4 h-4 mr-2" />
-              Upgrade to Premium
+              Get Premium
             </Button>
           </CardContent>
         </Card>
