@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Upload, Image as ImageIcon, FileText } from 'lucide-react';
 import React from 'react';
+import { Button } from '@/components/ui/button';
 
 export type ImportTriggerProps = {
   onImport: (type: 'image' | 'file') => void;
