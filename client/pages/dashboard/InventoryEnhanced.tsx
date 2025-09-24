@@ -745,7 +745,7 @@ export default function InventoryEnhanced() {
                   {filteredProducts.length} filtered
                 </p>
               </div>
-              <Package className="w-8 h-8 text-blue-600" />
+              <Package className="w-10 h-10 text-blue-600" />
             </div>
           </CardContent>
         </Card>
@@ -760,7 +760,7 @@ export default function InventoryEnhanced() {
                   Needs attention
                 </p>
               </div>
-              <TrendingDown className="w-8 h-8 text-orange-600" />
+              <TrendingDown className="w-10 h-10 text-orange-600" />
             </div>
           </CardContent>
         </Card>
@@ -775,7 +775,7 @@ export default function InventoryEnhanced() {
                   Urgent restocking
                 </p>
               </div>
-              <AlertTriangle className="w-8 h-8 text-red-600" />
+              <AlertTriangle className="w-10 h-10 text-red-600" />
             </div>
           </CardContent>
         </Card>
@@ -790,7 +790,7 @@ export default function InventoryEnhanced() {
                   Inventory worth
                 </p>
               </div>
-              <Warehouse className="w-8 h-8 text-green-600" />
+              <Warehouse className="w-10 h-10 text-green-600" />
             </div>
           </CardContent>
         </Card>
