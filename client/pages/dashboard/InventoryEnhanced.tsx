@@ -886,7 +886,7 @@ export default function InventoryEnhanced() {
             
             <div className="flex items-center gap-2">
               <SmartImportButton onImport={(t)=>{ setImportSource(t); setShowImport(true); }} />
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="default" className="text-base">
                 <Download className="w-4 h-4 mr-2" />
                 Export
               </Button>
