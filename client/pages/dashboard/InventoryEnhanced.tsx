@@ -38,6 +38,7 @@ import {
   Tag
 } from 'lucide-react';
 import { usePermissions } from '@/lib/permissions';
+import { dataManager } from '@/lib/data-manager';
 import { inventoryService } from '@/lib/inventory-service';
 import { formatCurrency } from '@/lib/business-data';
 import BackButton from '@/components/BackButton';
@@ -182,6 +183,24 @@ export default function InventoryEnhanced() {
     // Load data from inventory service (only once on mount)
     setLowStockProducts(inventoryService.getLowStockProducts());
     setExpiryAlerts(inventoryService.getExpiryAlerts(false));
+
+    // Load products from data manager
+    try {
+      const loaded = dataManager.getAllProducts().map(p => ({
+        id: p.id,
+        name: p.name,
+        sku: p.sku,
+        category: p.category,
+        price: p.price,
+        stock: p.stock,
+        minStock: p.lowStockThreshold || 10,
+        status: p.isActive ? (p.stock > 0 ? 'active' as const : 'out_of_stock' as const) : 'inactive' as const,
+        lastUpdated: new Date().toISOString()
+      }));
+      setProducts(loaded);
+    } catch {
+      setProducts([]);
+    }
 
     // Load recent items (only once on mount)
     const stored = localStorage.getItem('recent_inventory_items');
@@ -403,7 +422,7 @@ export default function InventoryEnhanced() {
     advancedFilters.stockRange.min > 0 || advancedFilters.stockRange.max < 1000;
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 sm:p-6 space-y-6 pb-24 safe-bottom">
       {/* Enhanced Header with Back Button */}
       <div className={`bg-white border rounded-lg p-4 transition-all ${headerSticky ? 'sticky top-4 z-40 shadow-lg' : ''}`}>
         <div className="flex flex-col gap-4">
@@ -411,7 +430,7 @@ export default function InventoryEnhanced() {
           
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-3">
                 <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg flex items-center justify-center">
                   <Package className="w-6 h-6 text-white" />
                 </div>
@@ -423,7 +442,7 @@ export default function InventoryEnhanced() {
                   </div>
                 )}
               </h1>
-              <div className="text-gray-600 mt-1 flex items-center gap-4">
+              <div className="text-gray-600 mt-1 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm">
                 <span>Manage products, stock levels, and inventory alerts</span>
                 <Badge variant="outline" className="text-xs">
                   {filteredProducts.length} of {products.length} products
@@ -442,20 +461,32 @@ export default function InventoryEnhanced() {
               </div>
             </div>
             
-            <div className="chip-row items-center">
+            <div className="w-full grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center">
               {undoStack.length > 0 && (
                 <Button variant="outline" size="sm">
                   <Undo2 className="w-4 h-4 mr-2" />
                   Undo
                 </Button>
               )}
-              
-              <Button variant="outline" className="h-8 px-2.5 rounded-full whitespace-nowrap" onClick={() => window.location.href = '/dashboard/inventory-batches'}>
+
+              <Button size="xs" variant="outline" className="h-8 px-2.5 rounded-full whitespace-nowrap w-full sm:w-auto" onClick={() => window.location.href = '/dashboard/inventory-batches'}>
                 <Calendar className="w-4 h-4 mr-2" />
                 Batch Tracking
               </Button>
 
               <SmartImportButton onImport={(t)=>{ setImportSource(t); setShowImport(true); }} />
+
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-8 px-2.5 rounded-full whitespace-nowrap"
+                onClick={() => setShowFilters(!showFilters)}
+                data-filter-toggle
+              >
+                <Filter className="w-4 h-4 mr-2" />
+                Filters
+                <Badge variant="outline" className="ml-2 text-xs">F</Badge>
+              </Button>
 
               <Button className="h-11 w-full sm:w-auto" onClick={() => { setAddTab('finished'); setShowAddDialog(true); }}>
                 <Plus className="w-4 h-4 mr-2" />
@@ -466,7 +497,7 @@ export default function InventoryEnhanced() {
           </div>
 
           {/* Search and Quick Filters */}
-          <div className="flex gap-4 items-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
               <Input
@@ -476,7 +507,7 @@ export default function InventoryEnhanced() {
                 className="pl-10"
               />
             </div>
-            
+
             {/* Quick Filter Chips */}
             <div className="chip-row">
               <Button
@@ -488,7 +519,7 @@ export default function InventoryEnhanced() {
                 <Star className="w-3 h-3 mr-1" />
                 Starred ({starredCount})
               </Button>
-              
+
               <Button
                 variant={quickFilters.lowStock ? 'default' : 'outline'}
                 size="sm"
@@ -498,7 +529,7 @@ export default function InventoryEnhanced() {
                 <TrendingDown className="w-3 h-3 mr-1" />
                 Low Stock ({lowStockCount})
               </Button>
-              
+
               <Button
                 variant={quickFilters.outOfStock ? 'default' : 'outline'}
                 size="sm"
@@ -509,18 +540,6 @@ export default function InventoryEnhanced() {
                 Out of Stock ({outOfStockCount})
               </Button>
             </div>
-
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-8 px-2.5 rounded-full whitespace-nowrap"
-              onClick={() => setShowFilters(!showFilters)}
-              data-filter-toggle
-            >
-              <Filter className="w-4 h-4 mr-2" />
-              Filters
-              <Badge variant="outline" className="ml-2 text-xs">F</Badge>
-            </Button>
           </div>
 
           {/* Advanced Filters Panel */}
@@ -690,8 +709,32 @@ export default function InventoryEnhanced() {
         </div>
       )}
 
+      {/* Quick scopes (mobile-first) */}
+      <div className="mt-2">
+        <Tabs
+          value={selectedTab}
+          onValueChange={(v)=>{
+            setSelectedTab(v);
+            setQuickFilters({
+              starred: v === 'starred',
+              lowStock: v === 'low',
+              outOfStock: v === 'oos',
+              recentlyUpdated: v === 'recent'
+            });
+          }}
+        >
+          <TabsList className="w-full grid grid-cols-2 gap-2 sm:inline-flex">
+            <TabsTrigger value="all">All</TabsTrigger>
+            <TabsTrigger value="starred">Favorites</TabsTrigger>
+            <TabsTrigger value="low">Low Stock</TabsTrigger>
+            <TabsTrigger value="oos">Out of Stock</TabsTrigger>
+            <TabsTrigger value="recent">Recent</TabsTrigger>
+          </TabsList>
+        </Tabs>
+      </div>
+
       {/* Enhanced Overview Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
         <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => setSelectedTab('all')}>
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
@@ -788,7 +831,7 @@ export default function InventoryEnhanced() {
 
       {/* Bulk Selection Bar */}
       {bulkSelection.selectedItems.length > 0 && (
-        <Card className="border-blue-200 bg-blue-50">
+        <Card className="border-blue-200 bg-blue-50 fixed bottom-4 left-4 right-4 z-40 sm:static sm:bottom-auto sm:left-auto sm:right-auto">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
@@ -878,9 +921,9 @@ export default function InventoryEnhanced() {
           {/* Products List */}
           <div className="space-y-4">
             {filteredProducts.map((product) => (
-              <div 
-                key={product.id} 
-                className={`flex items-center justify-between p-4 rounded-lg border transition-all hover:shadow-md ${
+              <div
+                key={product.id}
+                className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 rounded-lg border transition-all hover:shadow-md ${
                   bulkSelection.isSelected(product) ? 'bg-blue-50 border-blue-200' : 'hover:bg-gray-50'
                 }`}
                 onContextMenu={(e) => {
@@ -935,6 +978,9 @@ export default function InventoryEnhanced() {
                       <span className={`text-sm font-medium ${getStockStatusColor(product.stock, product.minStock)}`}>
                         Stock: {product.stock} units
                       </span>
+                      <span className="text-sm font-medium">
+                        Value: {formatCurrency(product.price * product.stock)}
+                      </span>
                       <Badge className={getStatusColor(product.status)}>
                         {product.status.replace('_', ' ')}
                       </Badge>
@@ -959,29 +1005,29 @@ export default function InventoryEnhanced() {
                 </div>
                 
                 {/* Action Buttons */}
-                <div className="flex items-center gap-2">
-                  <Button 
-                    variant="ghost" 
+                <div className="flex items-center gap-2 mt-3 sm:mt-0">
+                  <Button
+                    variant="ghost"
                     size="sm"
                     onClick={() => handleToggleStar(product)}
                   >
                     <Star className={`w-4 h-4 ${product.starred ? 'text-yellow-500 fill-current' : 'text-gray-400'}`} />
                   </Button>
-                  
-                  <Button 
-                    variant="outline" 
+
+                  <Button
+                    variant="outline"
                     size="sm"
                     onClick={() => handleViewProduct(product)}
                   >
                     <Eye className="w-4 h-4 mr-2" />
                     View
                   </Button>
-                  
+
                   <Button variant="outline" size="sm">
                     <Edit className="w-4 h-4 mr-2" />
                     Edit
                   </Button>
-                  
+
                   <Button variant="outline" size="sm">
                     <MoreHorizontal className="w-4 h-4" />
                   </Button>
@@ -991,14 +1037,16 @@ export default function InventoryEnhanced() {
 
             {filteredProducts.length === 0 && (
               <div className="text-center py-12 text-gray-500">
-                <Package className="w-16 h-16 mx-auto mb-4 text-gray-300" />
+                <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center border">
+                  <Package className="w-12 h-12 text-indigo-400" />
+                </div>
                 <h3 className="text-lg font-medium mb-2">
-                  {hasActiveFilters ? 'No products match your filters' : 'No products found'}
+                  {hasActiveFilters ? 'No products match your filters' : 'No products yet'}
                 </h3>
-                <p className="text-sm mb-4">
-                  {hasActiveFilters 
-                    ? 'Try adjusting your search or filters' 
-                    : 'Get started by adding your first product'
+                <p className="text-sm mb-6">
+                  {hasActiveFilters
+                    ? 'Try adjusting your search or filters'
+                    : 'Add products to track stock levels and total value'
                   }
                 </p>
                 {hasActiveFilters ? (
@@ -1007,7 +1055,11 @@ export default function InventoryEnhanced() {
                     Clear all filters
                   </Button>
                 ) : (
-                  <div className="flex gap-2 justify-center">
+                  <div className="flex flex-col sm:flex-row gap-2 justify-center">
+                    <Button className="h-11 w-full sm:w-auto" onClick={() => { setAddTab('finished'); setShowAddDialog(true); }}>
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add Product
+                    </Button>
                     <SmartImportButton onImport={(t)=>{ setImportSource(t); setShowImport(true); }} />
                   </div>
                 )}
