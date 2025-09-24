@@ -1085,7 +1085,7 @@ export default function InventoryEnhanced() {
             </div>
             <div className="flex items-center gap-2">
               <Link to="/dashboard/manufacturer/raw-material-inventory">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="default" className="text-base">
                   Manage
                 </Button>
               </Link>
