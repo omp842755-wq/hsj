@@ -512,31 +512,31 @@ export default function InventoryEnhanced() {
             <div className="chip-row">
               <Button
                 variant={quickFilters.starred ? 'default' : 'outline'}
-                size="sm"
-                className="h-8 px-2.5 rounded-full whitespace-nowrap"
+                size="default"
+                className="h-10 px-3 rounded-full whitespace-nowrap text-sm"
                 onClick={() => setQuickFilters(prev => ({ ...prev, starred: !prev.starred }))}
               >
-                <Star className="w-3 h-3 mr-1" />
+                <Star className="w-4 h-4 mr-1" />
                 Starred ({starredCount})
               </Button>
 
               <Button
                 variant={quickFilters.lowStock ? 'default' : 'outline'}
-                size="sm"
-                className="h-8 px-2.5 rounded-full whitespace-nowrap"
+                size="default"
+                className="h-10 px-3 rounded-full whitespace-nowrap text-sm"
                 onClick={() => setQuickFilters(prev => ({ ...prev, lowStock: !prev.lowStock }))}
               >
-                <TrendingDown className="w-3 h-3 mr-1" />
+                <TrendingDown className="w-4 h-4 mr-1" />
                 Low Stock ({lowStockCount})
               </Button>
 
               <Button
                 variant={quickFilters.outOfStock ? 'default' : 'outline'}
-                size="sm"
-                className="h-8 px-2.5 rounded-full whitespace-nowrap"
+                size="default"
+                className="h-10 px-3 rounded-full whitespace-nowrap text-sm"
                 onClick={() => setQuickFilters(prev => ({ ...prev, outOfStock: !prev.outOfStock }))}
               >
-                <AlertTriangle className="w-3 h-3 mr-1" />
+                <AlertTriangle className="w-4 h-4 mr-1" />
                 Out of Stock ({outOfStockCount})
               </Button>
             </div>
