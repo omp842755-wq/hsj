@@ -469,7 +469,7 @@ export default function InventoryEnhanced() {
                 </Button>
               )}
 
-              <Button variant="outline" className="h-8 px-2.5 rounded-full whitespace-nowrap" onClick={() => window.location.href = '/dashboard/inventory-batches'}>
+              <Button size="xs" variant="outline" className="h-8 px-2.5 rounded-full whitespace-nowrap w-full sm:w-auto" onClick={() => window.location.href = '/dashboard/inventory-batches'}>
                 <Calendar className="w-4 h-4 mr-2" />
                 Batch Tracking
               </Button>
