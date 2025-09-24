@@ -890,7 +890,7 @@ export default function InventoryEnhanced() {
                 <Download className="w-4 h-4 mr-2" />
                 Export
               </Button>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="default" className="text-base">
                 <RefreshCw className="w-4 h-4 mr-2" />
                 Refresh
               </Button>
