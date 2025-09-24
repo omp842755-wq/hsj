@@ -884,7 +884,7 @@ export default function InventoryEnhanced() {
               </CardDescription>
             </div>
             
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap justify-end">
               <SmartImportButton onImport={(t)=>{ setImportSource(t); setShowImport(true); }} />
               <Button variant="outline" size="default" className="text-base">
                 <Download className="w-4 h-4 mr-2" />
