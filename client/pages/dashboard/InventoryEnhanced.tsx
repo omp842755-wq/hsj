@@ -898,7 +898,7 @@ export default function InventoryEnhanced() {
           </div>
           
           {/* Select All Checkbox */}
-          <div className="flex items-center gap-2 pt-2">
+          <div className="flex items-center gap-3 pt-2">
             <input
               type="checkbox"
               checked={bulkSelection.isAllSelected}
@@ -906,9 +906,9 @@ export default function InventoryEnhanced() {
                 if (el) el.indeterminate = bulkSelection.isPartiallySelected;
               }}
               onChange={() => bulkSelection.toggleAll()}
-              className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
             />
-            <span className="text-sm text-gray-600">
+            <span className="text-base text-gray-600">
               Select all ({filteredProducts.length} products)
             </span>
             <Badge variant="outline" className="text-xs ml-auto">
@@ -937,7 +937,7 @@ export default function InventoryEnhanced() {
                     type="checkbox"
                     checked={bulkSelection.isSelected(product)}
                     onChange={() => bulkSelection.toggleItem(product)}
-                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                   />
                   
                   {/* Product Icon */}
