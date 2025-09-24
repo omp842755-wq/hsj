@@ -469,8 +469,8 @@ export default function InventoryEnhanced() {
                 </Button>
               )}
 
-              <Button size="xs" variant="outline" className="h-8 px-2.5 rounded-full whitespace-nowrap w-full sm:w-auto" onClick={() => window.location.href = '/dashboard/inventory-batches'}>
-                <Calendar className="w-4 h-4 mr-2" />
+              <Button size="default" variant="outline" className="rounded-full whitespace-nowrap w-full sm:w-auto text-base" onClick={() => window.location.href = '/dashboard/inventory-batches'}>
+                <Calendar className="w-5 h-5 mr-2" />
                 Batch Tracking
               </Button>
 
@@ -478,18 +478,18 @@ export default function InventoryEnhanced() {
 
               <Button
                 variant="outline"
-                size="sm"
-                className="h-8 px-2.5 rounded-full whitespace-nowrap"
+                size="default"
+                className="rounded-full whitespace-nowrap text-base"
                 onClick={() => setShowFilters(!showFilters)}
                 data-filter-toggle
               >
-                <Filter className="w-4 h-4 mr-2" />
+                <Filter className="w-5 h-5 mr-2" />
                 Filters
                 <Badge variant="outline" className="ml-2 text-xs">F</Badge>
               </Button>
 
-              <Button className="h-11 w-full sm:w-auto" onClick={() => { setAddTab('finished'); setShowAddDialog(true); }}>
-                <Plus className="w-4 h-4 mr-2" />
+              <Button size="lg" className="w-full sm:w-auto text-base" onClick={() => { setAddTab('finished'); setShowAddDialog(true); }}>
+                <Plus className="w-5 h-5 mr-2" />
                 Add Product
                 <Badge variant="outline" className="ml-2 text-xs">N</Badge>
               </Button>
@@ -499,12 +499,12 @@ export default function InventoryEnhanced() {
           {/* Search and Quick Filters */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <Input
                 placeholder="Search products by name, SKU, or tags... (Press '/' to focus)"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
+                className="pl-11 h-12 text-base rounded-lg"
               />
             </div>
 
@@ -723,12 +723,12 @@ export default function InventoryEnhanced() {
             });
           }}
         >
-          <TabsList className="w-full grid grid-cols-2 gap-2 sm:inline-flex">
-            <TabsTrigger value="all">All</TabsTrigger>
-            <TabsTrigger value="starred">Favorites</TabsTrigger>
-            <TabsTrigger value="low">Low Stock</TabsTrigger>
-            <TabsTrigger value="oos">Out of Stock</TabsTrigger>
-            <TabsTrigger value="recent">Recent</TabsTrigger>
+          <TabsList className="w-full grid grid-cols-2 gap-2 sm:inline-flex p-2 rounded-lg">
+            <TabsTrigger value="all" className="px-4 py-2 text-base rounded-md">All</TabsTrigger>
+            <TabsTrigger value="starred" className="px-4 py-2 text-base rounded-md">Favorites</TabsTrigger>
+            <TabsTrigger value="low" className="px-4 py-2 text-base rounded-md">Low Stock</TabsTrigger>
+            <TabsTrigger value="oos" className="px-4 py-2 text-base rounded-md">Out of Stock</TabsTrigger>
+            <TabsTrigger value="recent" className="px-4 py-2 text-base rounded-md">Recent</TabsTrigger>
           </TabsList>
         </Tabs>
       </div>
@@ -1056,8 +1056,8 @@ export default function InventoryEnhanced() {
                   </Button>
                 ) : (
                   <div className="flex flex-col sm:flex-row gap-2 justify-center">
-                    <Button className="h-11 w-full sm:w-auto" onClick={() => { setAddTab('finished'); setShowAddDialog(true); }}>
-                      <Plus className="w-4 h-4 mr-2" />
+                    <Button size="lg" className="w-full sm:w-auto text-base" onClick={() => { setAddTab('finished'); setShowAddDialog(true); }}>
+                      <Plus className="w-5 h-5 mr-2" />
                       Add Product
                     </Button>
                     <SmartImportButton onImport={(t)=>{ setImportSource(t); setShowImport(true); }} />
@@ -1117,7 +1117,7 @@ export default function InventoryEnhanced() {
                 <p className="text-sm mb-4">Add raw materials to start tracking stock and costs</p>
                 <div className="flex gap-2 justify-center">
                   <Button onClick={() => { setAddTab('raw'); setShowAddDialog(true); }}>
-                    <Plus className="w-4 h-4 mr-2" />
+                    <Plus className="w-5 h-5 mr-2" />
                     Add Raw Material
                   </Button>
                   <Link to="/dashboard/manufacturer/raw-material-inventory">
