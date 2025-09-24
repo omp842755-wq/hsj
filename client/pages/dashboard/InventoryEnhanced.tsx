@@ -873,7 +873,7 @@ export default function InventoryEnhanced() {
       {/* Enhanced Product List */}
       <Card>
         <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
+          <div className="flex items-start justify-between gap-3 flex-wrap md:items-center">
             <div>
               <CardTitle className="flex items-center gap-2">
                 Product Inventory
@@ -1074,7 +1074,7 @@ export default function InventoryEnhanced() {
       {permissions.businessType !== 'retailer' && (
       <Card className="mt-6">
         <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
+          <div className="flex items-start justify-between gap-3 flex-wrap md:items-center">
             <div>
               <CardTitle className="flex items-center gap-2">
                 Raw Material Inventory
