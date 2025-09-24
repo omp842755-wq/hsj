@@ -422,17 +422,17 @@ export default function InventoryEnhanced() {
     advancedFilters.stockRange.min > 0 || advancedFilters.stockRange.max < 1000;
 
   return (
-    <div className="p-4 sm:p-6 space-y-6 pb-24 safe-bottom">
+    <div className="mx-auto max-w-7xl p-4 sm:p-6 space-y-6 pb-24 safe-bottom text-[15px] md:text-[16px]">
       {/* Enhanced Header with Back Button */}
-      <div className={`bg-white border rounded-lg p-4 transition-all ${headerSticky ? 'sticky top-4 z-40 shadow-lg' : ''}`}>
+      <div className={`bg-white border rounded-xl p-5 sm:p-6 transition-all ${headerSticky ? 'sticky top-4 z-40 shadow-lg' : ''}`}>
         <div className="flex flex-col gap-4">
           <BackButton />
           
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-start gap-4">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg flex items-center justify-center">
-                  <Package className="w-6 h-6 text-white" />
+              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 flex items-center gap-3">
+                <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                  <Package className="w-7 h-7 text-white" />
                 </div>
                 Inventory Management
                 {autoSaving && (
@@ -442,7 +442,7 @@ export default function InventoryEnhanced() {
                   </div>
                 )}
               </h1>
-              <div className="text-gray-600 mt-1 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm">
+              <div className="text-gray-600 mt-1 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm">
                 <span>Manage products, stock levels, and inventory alerts</span>
                 <Badge variant="outline" className="text-xs">
                   {filteredProducts.length} of {products.length} products
@@ -450,27 +450,27 @@ export default function InventoryEnhanced() {
                 {hasActiveFilters && (
                   <Button
                     variant="ghost"
-                    size="sm"
+                    size="default"
                     onClick={clearAllFilters}
-                    className="text-blue-600 hover:text-blue-700"
+                    className="text-blue-600 hover:text-blue-700 text-base"
                   >
-                    <X className="w-3 h-3 mr-1" />
+                    <X className="w-4 h-4 mr-1" />
                     Clear filters
                   </Button>
                 )}
               </div>
             </div>
             
-            <div className="w-full grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center">
+            <div className="w-full grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center sm:justify-end">
               {undoStack.length > 0 && (
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="default" className="text-base">
                   <Undo2 className="w-4 h-4 mr-2" />
                   Undo
                 </Button>
               )}
 
-              <Button size="xs" variant="outline" className="h-8 px-2.5 rounded-full whitespace-nowrap w-full sm:w-auto" onClick={() => window.location.href = '/dashboard/inventory-batches'}>
-                <Calendar className="w-4 h-4 mr-2" />
+              <Button size="default" variant="outline" className="rounded-full whitespace-nowrap w-full sm:w-auto text-base" onClick={() => window.location.href = '/dashboard/inventory-batches'}>
+                <Calendar className="w-5 h-5 mr-2" />
                 Batch Tracking
               </Button>
 
@@ -478,18 +478,18 @@ export default function InventoryEnhanced() {
 
               <Button
                 variant="outline"
-                size="sm"
-                className="h-8 px-2.5 rounded-full whitespace-nowrap"
+                size="default"
+                className="rounded-full whitespace-nowrap text-base"
                 onClick={() => setShowFilters(!showFilters)}
                 data-filter-toggle
               >
-                <Filter className="w-4 h-4 mr-2" />
+                <Filter className="w-5 h-5 mr-2" />
                 Filters
                 <Badge variant="outline" className="ml-2 text-xs">F</Badge>
               </Button>
 
-              <Button className="h-11 w-full sm:w-auto" onClick={() => { setAddTab('finished'); setShowAddDialog(true); }}>
-                <Plus className="w-4 h-4 mr-2" />
+              <Button size="lg" className="w-full sm:w-auto text-base" onClick={() => { setAddTab('finished'); setShowAddDialog(true); }}>
+                <Plus className="w-5 h-5 mr-2" />
                 Add Product
                 <Badge variant="outline" className="ml-2 text-xs">N</Badge>
               </Button>
@@ -499,12 +499,12 @@ export default function InventoryEnhanced() {
           {/* Search and Quick Filters */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <Input
                 placeholder="Search products by name, SKU, or tags... (Press '/' to focus)"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
+                className="pl-11 h-12 text-base rounded-lg"
               />
             </div>
 
@@ -512,31 +512,31 @@ export default function InventoryEnhanced() {
             <div className="chip-row">
               <Button
                 variant={quickFilters.starred ? 'default' : 'outline'}
-                size="sm"
-                className="h-8 px-2.5 rounded-full whitespace-nowrap"
+                size="default"
+                className="h-10 px-3 rounded-full whitespace-nowrap text-sm"
                 onClick={() => setQuickFilters(prev => ({ ...prev, starred: !prev.starred }))}
               >
-                <Star className="w-3 h-3 mr-1" />
+                <Star className="w-4 h-4 mr-1" />
                 Starred ({starredCount})
               </Button>
 
               <Button
                 variant={quickFilters.lowStock ? 'default' : 'outline'}
-                size="sm"
-                className="h-8 px-2.5 rounded-full whitespace-nowrap"
+                size="default"
+                className="h-10 px-3 rounded-full whitespace-nowrap text-sm"
                 onClick={() => setQuickFilters(prev => ({ ...prev, lowStock: !prev.lowStock }))}
               >
-                <TrendingDown className="w-3 h-3 mr-1" />
+                <TrendingDown className="w-4 h-4 mr-1" />
                 Low Stock ({lowStockCount})
               </Button>
 
               <Button
                 variant={quickFilters.outOfStock ? 'default' : 'outline'}
-                size="sm"
-                className="h-8 px-2.5 rounded-full whitespace-nowrap"
+                size="default"
+                className="h-10 px-3 rounded-full whitespace-nowrap text-sm"
                 onClick={() => setQuickFilters(prev => ({ ...prev, outOfStock: !prev.outOfStock }))}
               >
-                <AlertTriangle className="w-3 h-3 mr-1" />
+                <AlertTriangle className="w-4 h-4 mr-1" />
                 Out of Stock ({outOfStockCount})
               </Button>
             </div>
@@ -723,12 +723,12 @@ export default function InventoryEnhanced() {
             });
           }}
         >
-          <TabsList className="w-full grid grid-cols-2 gap-2 sm:inline-flex">
-            <TabsTrigger value="all">All</TabsTrigger>
-            <TabsTrigger value="starred">Favorites</TabsTrigger>
-            <TabsTrigger value="low">Low Stock</TabsTrigger>
-            <TabsTrigger value="oos">Out of Stock</TabsTrigger>
-            <TabsTrigger value="recent">Recent</TabsTrigger>
+          <TabsList className="w-full grid grid-cols-2 gap-2 sm:inline-flex p-2 rounded-lg">
+            <TabsTrigger value="all" className="px-4 py-2 text-base rounded-md">All</TabsTrigger>
+            <TabsTrigger value="starred" className="px-4 py-2 text-base rounded-md">Favorites</TabsTrigger>
+            <TabsTrigger value="low" className="px-4 py-2 text-base rounded-md">Low Stock</TabsTrigger>
+            <TabsTrigger value="oos" className="px-4 py-2 text-base rounded-md">Out of Stock</TabsTrigger>
+            <TabsTrigger value="recent" className="px-4 py-2 text-base rounded-md">Recent</TabsTrigger>
           </TabsList>
         </Tabs>
       </div>
@@ -745,7 +745,7 @@ export default function InventoryEnhanced() {
                   {filteredProducts.length} filtered
                 </p>
               </div>
-              <Package className="w-8 h-8 text-blue-600" />
+              <Package className="w-10 h-10 text-blue-600" />
             </div>
           </CardContent>
         </Card>
@@ -760,7 +760,7 @@ export default function InventoryEnhanced() {
                   Needs attention
                 </p>
               </div>
-              <TrendingDown className="w-8 h-8 text-orange-600" />
+              <TrendingDown className="w-10 h-10 text-orange-600" />
             </div>
           </CardContent>
         </Card>
@@ -775,7 +775,7 @@ export default function InventoryEnhanced() {
                   Urgent restocking
                 </p>
               </div>
-              <AlertTriangle className="w-8 h-8 text-red-600" />
+              <AlertTriangle className="w-10 h-10 text-red-600" />
             </div>
           </CardContent>
         </Card>
@@ -790,7 +790,7 @@ export default function InventoryEnhanced() {
                   Inventory worth
                 </p>
               </div>
-              <Warehouse className="w-8 h-8 text-green-600" />
+              <Warehouse className="w-10 h-10 text-green-600" />
             </div>
           </CardContent>
         </Card>
@@ -815,9 +815,9 @@ export default function InventoryEnhanced() {
                   <Button
                     key={id}
                     variant="outline"
-                    size="sm"
+                    size="default"
                     onClick={() => handleViewProduct(product)}
-                    className="whitespace-nowrap"
+                    className="whitespace-nowrap text-base"
                   >
                     <Package className="w-3 h-3 mr-1" />
                     {product.name}
@@ -873,7 +873,7 @@ export default function InventoryEnhanced() {
       {/* Enhanced Product List */}
       <Card>
         <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
+          <div className="flex items-start justify-between gap-3 flex-wrap md:items-center">
             <div>
               <CardTitle className="flex items-center gap-2">
                 Product Inventory
@@ -884,13 +884,13 @@ export default function InventoryEnhanced() {
               </CardDescription>
             </div>
             
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap justify-end">
               <SmartImportButton onImport={(t)=>{ setImportSource(t); setShowImport(true); }} />
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="default" className="text-base">
                 <Download className="w-4 h-4 mr-2" />
                 Export
               </Button>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="default" className="text-base">
                 <RefreshCw className="w-4 h-4 mr-2" />
                 Refresh
               </Button>
@@ -898,7 +898,7 @@ export default function InventoryEnhanced() {
           </div>
           
           {/* Select All Checkbox */}
-          <div className="flex items-center gap-2 pt-2">
+          <div className="flex items-center gap-3 pt-2">
             <input
               type="checkbox"
               checked={bulkSelection.isAllSelected}
@@ -906,9 +906,9 @@ export default function InventoryEnhanced() {
                 if (el) el.indeterminate = bulkSelection.isPartiallySelected;
               }}
               onChange={() => bulkSelection.toggleAll()}
-              className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
             />
-            <span className="text-sm text-gray-600">
+            <span className="text-base text-gray-600">
               Select all ({filteredProducts.length} products)
             </span>
             <Badge variant="outline" className="text-xs ml-auto">
@@ -937,16 +937,16 @@ export default function InventoryEnhanced() {
                     type="checkbox"
                     checked={bulkSelection.isSelected(product)}
                     onChange={() => bulkSelection.toggleItem(product)}
-                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                   />
                   
                   {/* Product Icon */}
-                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center relative ${
+                  <div className={`w-14 h-14 rounded-lg flex items-center justify-center relative ${
                     product.status === 'out_of_stock' ? 'bg-red-100 text-red-600' :
                     product.stock <= product.minStock ? 'bg-orange-100 text-orange-600' :
                     'bg-green-100 text-green-600'
                   }`}>
-                    <Package className="w-6 h-6" />
+                    <Package className="w-7 h-7" />
                     {product.starred && (
                       <Star className="w-3 h-3 absolute -top-1 -right-1 text-yellow-500 fill-current" />
                     )}
@@ -954,7 +954,7 @@ export default function InventoryEnhanced() {
                   
                   {/* Product Info */}
                   <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2 mb-1">
+                    <div className="flex items-center gap-2 mb-1 text-base">
                       <p className="font-medium truncate">{product.name}</p>
                       {product.starred && (
                         <Star className="w-4 h-4 text-yellow-500 fill-current flex-shrink-0" />
@@ -971,7 +971,7 @@ export default function InventoryEnhanced() {
                       )}
                     </p>
                     
-                    <div className="flex items-center gap-4 flex-wrap">
+                    <div className="flex items-center gap-4 flex-wrap text-base">
                       <span className="text-sm font-medium">
                         Price: {formatCurrency(product.price)}
                       </span>
@@ -1016,19 +1016,20 @@ export default function InventoryEnhanced() {
 
                   <Button
                     variant="outline"
-                    size="sm"
+                    size="default"
+                    className="text-base"
                     onClick={() => handleViewProduct(product)}
                   >
                     <Eye className="w-4 h-4 mr-2" />
                     View
                   </Button>
 
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="default" className="text-base">
                     <Edit className="w-4 h-4 mr-2" />
                     Edit
                   </Button>
 
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="default" className="text-base">
                     <MoreHorizontal className="w-4 h-4" />
                   </Button>
                 </div>
@@ -1056,8 +1057,8 @@ export default function InventoryEnhanced() {
                   </Button>
                 ) : (
                   <div className="flex flex-col sm:flex-row gap-2 justify-center">
-                    <Button className="h-11 w-full sm:w-auto" onClick={() => { setAddTab('finished'); setShowAddDialog(true); }}>
-                      <Plus className="w-4 h-4 mr-2" />
+                    <Button size="lg" className="w-full sm:w-auto text-base" onClick={() => { setAddTab('finished'); setShowAddDialog(true); }}>
+                      <Plus className="w-5 h-5 mr-2" />
                       Add Product
                     </Button>
                     <SmartImportButton onImport={(t)=>{ setImportSource(t); setShowImport(true); }} />
@@ -1073,7 +1074,7 @@ export default function InventoryEnhanced() {
       {permissions.businessType !== 'retailer' && (
       <Card className="mt-6">
         <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
+          <div className="flex items-start justify-between gap-3 flex-wrap md:items-center">
             <div>
               <CardTitle className="flex items-center gap-2">
                 Raw Material Inventory
@@ -1084,7 +1085,7 @@ export default function InventoryEnhanced() {
             </div>
             <div className="flex items-center gap-2">
               <Link to="/dashboard/manufacturer/raw-material-inventory">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="default" className="text-base">
                   Manage
                 </Button>
               </Link>
@@ -1117,7 +1118,7 @@ export default function InventoryEnhanced() {
                 <p className="text-sm mb-4">Add raw materials to start tracking stock and costs</p>
                 <div className="flex gap-2 justify-center">
                   <Button onClick={() => { setAddTab('raw'); setShowAddDialog(true); }}>
-                    <Plus className="w-4 h-4 mr-2" />
+                    <Plus className="w-5 h-5 mr-2" />
                     Add Raw Material
                   </Button>
                   <Link to="/dashboard/manufacturer/raw-material-inventory">
